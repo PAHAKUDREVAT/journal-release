@@ -1,25 +1,24 @@
 name: Build Windows EXE
 on: [push, workflow_dispatch]
 jobs:
-  build:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install setuptools==69.5.1
-          pip install -r requirements.txt
-          pip install pyinstaller==6.10.0
-      - name: Build with PyInstaller
-        run: |
-          pyinstaller --onedir --name "Journal" app.py
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Journal-Folder
-          path: dist/Journal
+build:
+runs-on: windows-latest
+steps:
+- uses: actions/checkout@v4
+- name: Set up Python
+uses: actions/setup-python@v5
+with:
+python-version: '3.11' # Стабильная версия
+- name: Install dependencies
+run: |
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+pip install pyinstaller==5.13.2
+- name: Build with PyInstaller
+run: |
+pyinstaller --clean --onefile --runtime-tmpdir . --name "Journal" app.py
+- name: Upload artifact
+uses: actions/upload-artifact@v4
+with:
+name: Journal-EXE
+path: dist/Journal.exe
