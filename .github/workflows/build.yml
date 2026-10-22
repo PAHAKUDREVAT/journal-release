@@ -8,7 +8,7 @@ steps:
 - name: Set up Python
 uses: actions/setup-python@v5
 with:
-python-version: '3.11' # Стабильная версия
+python-version: '3.11'
 - name: Install dependencies
 run: |
 python -m pip install --upgrade pip
@@ -16,7 +16,7 @@ pip install -r requirements.txt
 pip install pyinstaller==5.13.2
 - name: Build with PyInstaller
 run: |
-pyinstaller --clean --onefile --runtime-tmpdir . --name "Journal" app.py
+pyinstaller --clean --onefile --name "Journal" app.py
 - name: Upload artifact
 uses: actions/upload-artifact@v4
 with:
